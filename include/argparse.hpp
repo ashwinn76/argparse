@@ -10,6 +10,7 @@
  */
 
 #include <algorithm>
+#include <exception>
 #include <string>
 #include <string_view>
 #include <vector>
