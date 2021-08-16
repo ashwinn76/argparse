@@ -18,10 +18,11 @@ elseif(UNIX)
 endif()
 
 find_package(Threads REQUIRED)
+find_package(CURL REQUIRED)
 
 include(gtest.cmake)
 
-include_directories("${PROJECT_SOURCE_DIR}/include/")
+include_directories(SYSTEM "${PROJECT_SOURCE_DIR}/include/")
 
 # tests
 add_subdirectory(tests)

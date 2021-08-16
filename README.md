@@ -1,2 +1,2 @@
-# argparse
-A C++ library for quick argument parsing
+# stdh
+A C++ header only library for helpful functions
