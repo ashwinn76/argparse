@@ -13,8 +13,8 @@
 
 #include <stdexcept>
 
-#include "general/type_trait_utils.hpp"
-#include "general/algo_utils.hpp"
+#include <general/algo_utils>
+#include <general/type_trait_utils>
 
 /**
  * @brief a wrapper class to contain a bound value

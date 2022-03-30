@@ -13,9 +13,8 @@
 
 #include <fstream>
 
-#include <general/fs_include.hpp>
-
-#include <json/json_helper.hpp>
+#include <general/fs_include>
+#include <json/json_helper>
 
 TEST( JsonHelperTests, JsonToString )
 {

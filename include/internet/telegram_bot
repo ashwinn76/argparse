@@ -15,11 +15,9 @@
 #include <mutex>
 #include <string>
 
-#include <general/fs_include.hpp>
-
-#include <internet/curl_helper.hpp>
-
-#include <json/json_helper.hpp>
+#include <general/fs_include>
+#include <internet/curl_helper>
+#include <json/json_helper>
 
 namespace stdh::internet
 {
@@ -42,7 +40,7 @@ private:
      * @param i_user_id user id that needs to be parsed for
      * @return last update id and a list of commands
      */
-    auto process_updates( const json& i_json, std::int64_t i_user_id )
+    auto process_updates( const json& i_json, std::int64_t i_user_id ) const
     {
         auto latest_update_id{ 0_i64 };
 
@@ -92,6 +90,13 @@ public:
     void send_message( const std::string& i_message ) const;
 
     /**
+     * @brief Log message to user for debugging
+     *
+     * @param i_message
+     */
+    void log( const std::string& i_message ) const;
+
+    /**
      * @brief Process updates from Telegram
      *
      * @param i_create_tasks Whether to create tasks from updates
@@ -103,7 +108,7 @@ public:
      *
      * @param i_cmd incoming command
      */
-    virtual void add_task( std::string i_cmd ){};
+    virtual void add_task( std::string i_cmd ) = 0;
 };
 
 telegram_bot::telegram_bot( fs::path i_path, bool i_logMessages ) :
@@ -118,19 +123,13 @@ telegram_bot::telegram_bot( fs::path i_path, bool i_logMessages ) :
 
     this->process_updates( false );
 
-    if( this->m_logMessages )
-    {
-        this->send_message( "Bot has started" );
-    }
+    this->log( "Bot has started" );
 }
 
 
 telegram_bot::~telegram_bot()
 {
-    if( this->m_logMessages )
-    {
-        this->send_message( "Bot is shutting down" );
-    }
+    this->log( "Bot is shutting down" );
 
     if( auto stream{ std::ofstream{ this->m_credentials } }; stream.good() )
     {
@@ -170,7 +169,16 @@ void telegram_bot::send_message( const std::string& i_message ) const
 }
 
 
-void telegram_bot::process_updates( bool i_create_tasks /*= true*/ )
+void telegram_bot::log( const std::string& i_message ) const
+{
+    if( this->m_logMessages )
+    {
+        this->send_message( i_message );
+    }
+}
+
+
+void telegram_bot::process_updates( bool i_create_tasks /*= true*/ ) const
 {
     std::lock_guard lk{ this->m_mtx };
 
@@ -198,7 +206,7 @@ void telegram_bot::process_updates( bool i_create_tasks /*= true*/ )
     {
         for( auto&& message : messages )
         {
-            this->add_task( std::move( message ), m_manager );
+            this->add_task( std::move( message ) );
         }
     }
 }

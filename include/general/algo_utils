@@ -13,7 +13,7 @@
 
 #include <random>
 
-#include <general/type_trait_utils.hpp>
+#include <general/type_trait_utils>
 
 /**
  * @brief Get the char address of the object

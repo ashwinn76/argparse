@@ -17,7 +17,7 @@
 #    include <type_traits>
 #endif
 
-#include <general/macro_utils.hpp>
+#include <general/macro_utils>
 
 #ifdef __CONCEPTS
 
@@ -91,10 +91,12 @@ concept IsMatrix = requires( _T x )
 
     {
         x + x
-        } -> std::convertible_to<_T>;
+    }
+    ->std::convertible_to<_T>;
     {
         x - x
-        } -> std::convertible_to<_T>;
+    }
+    ->std::convertible_to<_T>;
 };
 
 #else

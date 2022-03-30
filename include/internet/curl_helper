@@ -19,7 +19,7 @@
 
 #include <curl/curl.h>
 
-#include <general/macro_utils.hpp>
+#include <general/macro_utils>
 
 namespace stdh::internet
 {

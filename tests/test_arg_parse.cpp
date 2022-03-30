@@ -11,7 +11,7 @@
 
 #include "gtest/gtest.h"
 
-#include <argparse/argparse.hpp>
+#include <argparse/argparse>
 
 #define ARGS_AND_N_ARGS( ... ) \
     const char* args[] = { __VA_ARGS__ }; \

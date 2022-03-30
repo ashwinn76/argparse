@@ -12,7 +12,7 @@
 
 #include "gtest/gtest.h"
 
-#include <argparse/argparse.hpp>
+#include <argparse/argparse>
 
 void check_arg( const parse::arg& i_arg,
                 std::string i_name,
